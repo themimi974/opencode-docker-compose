@@ -1,0 +1,24 @@
+services:
+  opencode:
+    image: ghcr.io/anomalyco/opencode:latest
+    container_name: opencode
+    stdin_open: true   # docker run -i
+    tty: true          # docker run -t  (required for TUI)
+
+    working_dir: /workspace
+
+    volumes:
+      # Only the current directory is exposed to the container
+      - ./workspace:/workspace:z
+      - ./opencode.json:/workspace/opencode.json:ro,z
+    environment:
+      # --- Groq API key ---
+      # Set it in a .env file next to this docker-compose.yml:
+      #   GROQ_API_KEY=gsk_...
+      #- GROQ_API_KEY=${GROQ_API_KEY:?GROQ_API_KEY is required}
+
+    # Run as a non-root user (uid 1000 = typical first Linux user)
+    # user: "1001:1001"
+
+    network_mode: bridge
+    restart: "no"
