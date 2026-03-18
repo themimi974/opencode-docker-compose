@@ -39,8 +39,6 @@ Nothing from your home directory or the rest of your filesystem.
 
 ## Notes
 
-- The container runs as uid 1000. Check yours with `id -u` and adjust
-  `user:` in the yml if needed.
 - Sessions are lost when the container exits. For persistent sessions:
   add `- opencode_sessions:/root/.local/share/opencode` under `volumes:`
   and declare the named volume at the bottom of the compose file.
